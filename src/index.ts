@@ -1,8 +1,12 @@
-import express from 'express'
+import * as data from './data'
+import * as rest from './http/rest'
+import * as memory from './storage/memory'
 
-const app = express()
+const storage = memory.NewStorage()
+const dataService = data.NewService(storage)
+const app = rest.NewApp(dataService)
+
 const port = 3000
-
-app.get('/', (req, res) => res.send('Hello World!'))
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => {
+  console.log(`Listening on port ${port}.`)
+})

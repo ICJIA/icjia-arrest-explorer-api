@@ -16,6 +16,14 @@ const runQuery = (
     result = data.filter(result, 'year', '<=', data.toInt(query.maxYear))
   }
 
+  if ('sortBy' in query) {
+    query.sortBy.split(' ').forEach(param => {
+      const [by, orderRaw] = param.split(':')
+      const order = orderRaw ? orderRaw.toLowerCase() : undefined
+      result = data.sortBy(result, by, order as 'asc' | 'desc' | undefined)
+    })
+  }
+
   return result
 }
 

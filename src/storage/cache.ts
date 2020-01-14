@@ -6,7 +6,7 @@ type Storage = {
   getArrestsByOffenseClass: () => data.Table
 }
 
-const fetchFromDB = async (
+export const fetchFromDB = async (
   db: sqlite3.Database,
   tableName: string,
 ): Promise<data.Table> => {

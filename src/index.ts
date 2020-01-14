@@ -1,11 +1,20 @@
+import config from './config'
 import * as data from './data'
 import * as rest from './http/rest'
 import * as cache from './storage/cache'
-// import * as memory from './storage/memory'
+import * as memory from './storage/memory'
 
 const main = async (): Promise<void> => {
-  const storage = await cache.NewStorage()
-  // const storage = memory.NewStorage()
+  let storage
+  switch (config.storage) {
+    case 'cache':
+      storage = await cache.NewStorage()
+      break
+    case 'memory':
+      storage = memory.NewStorage()
+      break
+  }
+
   const dataService = data.NewService(storage)
   const app = rest.NewApp(dataService)
 

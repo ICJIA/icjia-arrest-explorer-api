@@ -4,7 +4,7 @@ import * as rest from './http/rest'
 import * as cache from './storage/cache'
 import * as memory from './storage/memory'
 
-const main = async (): Promise<void> => {
+async function main(): Promise<void> {
   let storage
   switch (config.storage) {
     case 'cache':

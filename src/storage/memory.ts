@@ -18,7 +18,9 @@ const arrestsByOffenseClass: data.Table = data.unflatten([
   { year: 2018, offenseclass: 2, value: 121 },
 ])
 
-export const NewStorage = (): Storage => ({
-  getArrestsAll: (): data.Table => arrestsAll,
-  getArrestsByOffenseClass: (): data.Table => arrestsByOffenseClass,
-})
+export function NewStorage(): Storage {
+  return {
+    getArrestsAll: (): data.Table => arrestsAll,
+    getArrestsByOffenseClass: (): data.Table => arrestsByOffenseClass,
+  }
+}

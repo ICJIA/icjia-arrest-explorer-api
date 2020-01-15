@@ -6,10 +6,10 @@ type Storage = {
   getArrestsByOffenseClass: () => data.Table
 }
 
-export const fetchFromDB = async (
+export async function fetchFromDB(
   db: sqlite3.Database,
   tableName: string,
-): Promise<data.Table> => {
+): Promise<data.Table> {
   return new Promise((resolve, reject) => {
     db.serialize(() => {
       db.all(`SELECT * FROM "${tableName}"`, (err: Error, rows) => {
@@ -20,7 +20,7 @@ export const fetchFromDB = async (
   })
 }
 
-const init = async (): Promise<data.Table[]> => {
+async function init(): Promise<data.Table[]> {
   const sqlite3 = require('sqlite3').verbose()
   const db = new sqlite3.Database('../database.db')
 
@@ -32,7 +32,7 @@ const init = async (): Promise<data.Table[]> => {
   return [arrestsAll, arrestsByOffenseClass]
 }
 
-export const NewStorage = async (): Promise<Storage> => {
+export async function NewStorage(): Promise<Storage> {
   const [arrestsAll, arrestsByOffenseClass] = await init()
 
   return {

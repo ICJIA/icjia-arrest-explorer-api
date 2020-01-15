@@ -21,13 +21,13 @@ export type Table = Row[]
 export type TableDTO = flatRow[]
 
 // Table functions
-export const filter = (
+export function filter(
   tbl: Table,
   by: string,
   matchIf: string,
   value: Int,
-): Table =>
-  tbl.filter(r => {
+): Table {
+  return tbl.filter(r => {
     let match = false
     r.variables.some(v => {
       if (v.name == by) {
@@ -52,8 +52,9 @@ export const filter = (
     })
     return match
   })
+}
 
-export const select = (tbl: Table, ...varNames: string[]): Table => {
+export function select(tbl: Table, ...varNames: string[]): Table {
   return tbl.map(r => {
     const selected = r.variables.filter(v => varNames.includes(v.name))
 
@@ -64,11 +65,11 @@ export const select = (tbl: Table, ...varNames: string[]): Table => {
   })
 }
 
-export const sortBy = (
+export function sortBy(
   tbl: Table,
   by: string,
   order: 'asc' | 'desc' = 'asc',
-): Table => {
+): Table {
   const compare = (a: Row, b: Row): number => {
     let va: IntOrString = ''
     let vb: IntOrString = ''
@@ -97,7 +98,7 @@ export const sortBy = (
     .map(({ row }) => row)
 }
 
-export const flatten = (tbl: Table): TableDTO => {
+export function flatten(tbl: Table): TableDTO {
   return tbl.map(row => {
     const flatRow: flatRow = {}
 
@@ -111,7 +112,7 @@ export const flatten = (tbl: Table): TableDTO => {
   })
 }
 
-export const unflatten = (tbl: TableDTO): Table => {
+export function unflatten(tbl: TableDTO): Table {
   return tbl.map(flatRow => {
     const variables: Variable[] = []
     let value = toInt(0)

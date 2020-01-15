@@ -2,10 +2,10 @@ import express from 'express'
 import morgan from 'morgan'
 import * as data from '../../data/'
 
-const runQuery = (
+function runQuery(
   tbl: data.Table,
   query: { [key: string]: string },
-): data.Table => {
+): data.Table {
   let result = tbl
 
   if ('minYear' in query) {
@@ -27,13 +27,13 @@ const runQuery = (
   return result
 }
 
-const getIndex = () => {
+function getIndex() {
   return (req: express.Request, res: express.Response): void => {
     res.send('Hello World!')
   }
 }
 
-const getArrestsAll = (s: data.Service) => {
+function getArrestsAll(s: data.Service) {
   return (req: express.Request, res: express.Response): void => {
     let tbl = s.getArrestsAll()
     tbl = runQuery(tbl, req.query)
@@ -44,7 +44,7 @@ const getArrestsAll = (s: data.Service) => {
   }
 }
 
-const getArrestsByOffenseClass = (s: data.Service) => {
+function getArrestsByOffenseClass(s: data.Service) {
   return (req: express.Request, res: express.Response): void => {
     let tbl = s.getArrestsByOffenseClass()
     tbl = runQuery(tbl, req.query)
@@ -55,7 +55,7 @@ const getArrestsByOffenseClass = (s: data.Service) => {
   }
 }
 
-export const NewApp = (s: data.Service): express.Express => {
+export function NewApp(s: data.Service): express.Express {
   const app = express()
   app.use(morgan('tiny'))
 

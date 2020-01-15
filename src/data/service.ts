@@ -10,7 +10,9 @@ export interface Service {
   getArrestsByOffenseClass: () => Table
 }
 
-export const NewService = (r: Repository): Service => ({
-  getArrestsAll: r.getArrestsAll,
-  getArrestsByOffenseClass: r.getArrestsByOffenseClass,
-})
+export function NewService(r: Repository): Service {
+  return {
+    getArrestsAll: r.getArrestsAll,
+    getArrestsByOffenseClass: r.getArrestsByOffenseClass,
+  }
+}

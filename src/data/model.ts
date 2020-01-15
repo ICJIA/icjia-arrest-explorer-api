@@ -24,7 +24,7 @@ export type TableDTO = flatRow[]
 export function filter(
   tbl: Table,
   by: string,
-  matchIf: string,
+  matchIf: '==' | '<=' | '>=' | '<' | '>',
   value: Int,
 ): Table {
   return tbl.filter(r => {

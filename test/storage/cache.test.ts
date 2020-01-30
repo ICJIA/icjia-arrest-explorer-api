@@ -5,9 +5,9 @@ import * as cache from '../../src/storage/cache'
 describe('fetchFromDB', () => {
   it('should return a proper Table from a SQLite database', async () => {
     const sqlite3 = require('sqlite3').verbose()
-    const db = new sqlite3.Database('../database.db')
+    const db = new sqlite3.Database('./database.db')
 
-    const actual = await cache.fetchFromDB(db, 'ArrestsAll')
+    const actual = await cache.fetchFromDB(db, 'Arrests')
     db.close()
     const expected: data.Table = [
       { year: 2009, value: 2435 },

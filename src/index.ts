@@ -8,7 +8,7 @@ async function main(): Promise<void> {
   let storage
   switch (config.storage) {
     case 'cache':
-      storage = await cache.NewStorage()
+      storage = await cache.NewStorage('./database.db')
       break
     case 'memory':
       storage = memory.NewStorage()

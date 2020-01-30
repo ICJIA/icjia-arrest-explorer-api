@@ -19,9 +19,11 @@ export async function fetchFromDB(
   })
 }
 
-async function fetchTables(): Promise<{ [key: string]: data.Table }> {
+async function fetchTables(
+  pathDB: string,
+): Promise<{ [key: string]: data.Table }> {
   const sqlite3 = require('sqlite3').verbose()
-  const db = new sqlite3.Database('../database.db')
+  const db = new sqlite3.Database(pathDB)
 
   const arrests = await fetchFromDB(db, 'Arrests')
   const arrestsByOffenseClass = await fetchFromDB(db, 'ArrestsByOffenseClass')
@@ -34,8 +36,8 @@ async function fetchTables(): Promise<{ [key: string]: data.Table }> {
   }
 }
 
-export async function NewStorage(): Promise<Storage> {
-  const tables = await fetchTables()
+export async function NewStorage(pathDB: string): Promise<Storage> {
+  const tables = await fetchTables(pathDB)
 
   return {
     getTable: (tableName: string): data.Table => tables[tableName],

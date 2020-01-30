@@ -19,7 +19,7 @@ export async function fetchFromDB(
   })
 }
 
-async function init(): Promise<{ [key: string]: data.Table }> {
+async function fetchTables(): Promise<{ [key: string]: data.Table }> {
   const sqlite3 = require('sqlite3').verbose()
   const db = new sqlite3.Database('../database.db')
 
@@ -35,7 +35,7 @@ async function init(): Promise<{ [key: string]: data.Table }> {
 }
 
 export async function NewStorage(): Promise<Storage> {
-  const tables = await init()
+  const tables = await fetchTables()
 
   return {
     getTable: (tableName: string): data.Table => tables[tableName],

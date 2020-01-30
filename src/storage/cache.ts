@@ -7,11 +7,11 @@ type Storage = {
 
 export async function fetchFromDB(
   db: sqlite3.Database,
-  tableName: string,
+  sql: string,
 ): Promise<data.Table> {
   return new Promise((resolve, reject) => {
     db.serialize(() => {
-      db.all(`SELECT * FROM "${tableName}"`, (err: Error, tbl) => {
+      db.all(sql, (err: Error, tbl) => {
         if (err) reject(err)
         else resolve(tbl)
       })
@@ -23,8 +23,11 @@ async function fetchTables(
   db: sqlite3.Database,
 ): Promise<{ [key: string]: data.Table }> {
   return {
-    arrests: await fetchFromDB(db, 'Arrests'),
-    arrestsByOffenseClass: await fetchFromDB(db, 'ArrestsByOffenseClass'),
+    arrests: await fetchFromDB(db, 'SELECT * FROM Arrests'),
+    arrestsByOffenseClass: await fetchFromDB(
+      db,
+      'SELECT * FROM ArrestsByOffenseClass',
+    ),
   }
 }
 

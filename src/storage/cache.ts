@@ -23,12 +23,12 @@ async function fetchTables(
   db: sqlite3.Database,
 ): Promise<{ [key: string]: data.Table }> {
   const sql = "SELECT name FROM sqlite_master WHERE type='table'"
-  const tableNames = await fetchFromDB(db, sql)
+  const tableNames = (await fetchFromDB(db, sql)).map(({ name }) => name)
 
   const tables: { [key: string]: data.Table } = {}
-  tableNames.forEach(async ({ name }) => {
+  for (const name of tableNames) {
     tables[name] = await fetchFromDB(db, `SELECT * FROM ${name}`)
-  })
+  }
 
   return tables
 }

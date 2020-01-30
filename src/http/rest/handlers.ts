@@ -38,7 +38,6 @@ export function createHandlerTable(s: data.Service) {
       .split(/\/|-/)
       .map(str => str.replace(/^\w/, c => c.toUpperCase()))
       .join('')
-      .replace(/^\w/, c => c.toLowerCase())
 
     let tbl = s.getTable(tableName)
     tbl = runQuery(tbl, req.query)

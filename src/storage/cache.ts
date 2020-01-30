@@ -23,8 +23,8 @@ async function fetchTables(
   db: sqlite3.Database,
 ): Promise<{ [key: string]: data.Table }> {
   return {
-    arrests: await fetchFromDB(db, 'SELECT * FROM Arrests'),
-    arrestsByOffenseClass: await fetchFromDB(
+    Arrests: await fetchFromDB(db, 'SELECT * FROM Arrests'),
+    ArrestsByOffenseClass: await fetchFromDB(
       db,
       'SELECT * FROM ArrestsByOffenseClass',
     ),

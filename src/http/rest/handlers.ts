@@ -34,7 +34,7 @@ export function createHandlerIndex() {
 
 export function createHandlerArrestsAll(s: data.Service) {
   return (req: express.Request, res: express.Response): void => {
-    let tbl = s.getArrestsAll()
+    let tbl = s.getTable('arrestsAll')
     tbl = runQuery(tbl, req.query)
 
     res.send(tbl)
@@ -43,7 +43,7 @@ export function createHandlerArrestsAll(s: data.Service) {
 
 export function createHandlerArrestsByOffenseClass(s: data.Service) {
   return (req: express.Request, res: express.Response): void => {
-    let tbl = s.getArrestsByOffenseClass()
+    let tbl = s.getTable('arrestsByOffenseClass')
     tbl = runQuery(tbl, req.query)
 
     res.send(tbl)

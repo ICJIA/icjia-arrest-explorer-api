@@ -2,8 +2,7 @@ import sqlite3 from 'sqlite3'
 import * as data from './../data'
 
 type Storage = {
-  getArrestsAll: () => data.Table
-  getArrestsByOffenseClass: () => data.Table
+  getTable: (tableName: string) => data.Table
 }
 
 export async function fetchFromDB(
@@ -20,7 +19,7 @@ export async function fetchFromDB(
   })
 }
 
-async function init(): Promise<data.Table[]> {
+async function init(): Promise<{ [key: string]: data.Table }> {
   const sqlite3 = require('sqlite3').verbose()
   const db = new sqlite3.Database('../database.db')
 
@@ -29,14 +28,16 @@ async function init(): Promise<data.Table[]> {
 
   db.close()
 
-  return [arrestsAll, arrestsByOffenseClass]
+  return {
+    arrestsAll,
+    arrestsByOffenseClass,
+  }
 }
 
 export async function NewStorage(): Promise<Storage> {
-  const [arrestsAll, arrestsByOffenseClass] = await init()
+  const tables = await init()
 
   return {
-    getArrestsAll: (): data.Table => arrestsAll,
-    getArrestsByOffenseClass: (): data.Table => arrestsByOffenseClass,
+    getTable: (tableName: string): data.Table => tables[tableName],
   }
 }

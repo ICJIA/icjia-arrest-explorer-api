@@ -1,7 +1,7 @@
 import * as data from './../data'
 
 type Storage = {
-  getTable: (tableName: string) => data.Table
+  tables: { [key: string]: data.Table }
 }
 
 const tables: { [key: string]: data.Table } = {
@@ -21,6 +21,6 @@ const tables: { [key: string]: data.Table } = {
 
 export function NewStorage(): Storage {
   return {
-    getTable: (tableName: string): data.Table => tables[tableName],
+    tables,
   }
 }

@@ -1,7 +1,7 @@
 import { Table } from './model'
 
 export interface Repository {
-  getTable: (tableName: string) => Table
+  tables: { [key: string]: Table }
 }
 
 export interface Service {
@@ -10,6 +10,6 @@ export interface Service {
 
 export function NewService(r: Repository): Service {
   return {
-    getTable: r.getTable,
+    getTable: (tableName: string): Table => r.tables[tableName],
   }
 }

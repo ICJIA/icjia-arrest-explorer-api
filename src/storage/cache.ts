@@ -2,7 +2,7 @@ import sqlite3 from 'sqlite3'
 import * as data from './../data'
 
 type Storage = {
-  getTable: (tableName: string) => data.Table
+  tables: { [key: string]: data.Table }
 }
 
 export async function fetchFromDB(
@@ -42,6 +42,6 @@ export async function NewStorage(pathDB: string): Promise<Storage> {
   db.close()
 
   return {
-    getTable: (tableName: string): data.Table => tables[tableName],
+    tables,
   }
 }

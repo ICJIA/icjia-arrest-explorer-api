@@ -22,13 +22,15 @@ export async function fetchFromDB(
 async function fetchTables(
   db: sqlite3.Database,
 ): Promise<{ [key: string]: data.Table }> {
-  return {
-    Arrests: await fetchFromDB(db, 'SELECT * FROM Arrests'),
-    ArrestsByOffenseClass: await fetchFromDB(
-      db,
-      'SELECT * FROM ArrestsByOffenseClass',
-    ),
-  }
+  const sql = "SELECT name FROM sqlite_master WHERE type='table'"
+  const tableNames = await fetchFromDB(db, sql)
+
+  const tables: { [key: string]: data.Table } = {}
+  tableNames.forEach(async ({ name }) => {
+    tables[name] = await fetchFromDB(db, `SELECT * FROM ${name}`)
+  })
+
+  return tables
 }
 
 export async function NewStorage(pathDB: string): Promise<Storage> {

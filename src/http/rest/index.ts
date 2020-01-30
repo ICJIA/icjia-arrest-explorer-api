@@ -3,6 +3,14 @@ import morgan from 'morgan'
 import * as data from '../../data/'
 import { createHandlerIndex, createHandlerTable } from './handlers'
 
+function toPath(tableName: string): string {
+  return tableName
+    .replace('By', '/by')
+    .replace(/([A-Z])/g, '-$1')
+    .replace('-', '/')
+    .toLowerCase()
+}
+
 export function NewApp(s: data.Service): express.Express {
   const app = express()
   app.use(morgan('tiny'))
@@ -11,8 +19,9 @@ export function NewApp(s: data.Service): express.Express {
   const handleTable = createHandlerTable(s)
 
   app.get('/', (req, res) => handleIndex(req, res))
-  app.get('/arrests', (req, res) => handleTable(req, res))
-  app.get('/arrests/by-offense-class', (req, res) => handleTable(req, res))
+  s.getTableNames().map(tableName => {
+    app.get(toPath(tableName), (req, res) => handleTable(req, res))
+  })
 
   return app
 }

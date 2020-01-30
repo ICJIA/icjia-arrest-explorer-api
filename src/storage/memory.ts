@@ -5,7 +5,7 @@ type Storage = {
 }
 
 const tables: { [key: string]: data.Table } = {
-  arrestsAll: [
+  arrests: [
     { year: 2017, value: 1820 },
     { year: 2018, value: 1795 },
   ],

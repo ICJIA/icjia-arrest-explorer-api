@@ -23,13 +23,13 @@ async function init(): Promise<{ [key: string]: data.Table }> {
   const sqlite3 = require('sqlite3').verbose()
   const db = new sqlite3.Database('../database.db')
 
-  const arrestsAll = await fetchFromDB(db, 'ArrestsAll')
+  const arrests = await fetchFromDB(db, 'ArrestsAll')
   const arrestsByOffenseClass = await fetchFromDB(db, 'ArrestsByOffenseClass')
 
   db.close()
 
   return {
-    arrestsAll,
+    arrests,
     arrestsByOffenseClass,
   }
 }

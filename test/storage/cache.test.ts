@@ -7,7 +7,7 @@ describe('fetchFromDB', () => {
     const sqlite3 = require('sqlite3').verbose()
     const db = new sqlite3.Database('./database.db')
 
-    const actual = await cache.fetchFromDB(db, 'Arrests')
+    const actual = await cache.fetchFromDB(db, 'SELECT * FROM Arrests')
     db.close()
     const expected: data.Table = [
       { year: 2009, value: 2435 },

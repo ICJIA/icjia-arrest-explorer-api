@@ -5,18 +5,18 @@ type Storage = {
   getArrestsByOffenseClass: () => data.Table
 }
 
-const arrestsAll: data.Table = data.unflatten([
+const arrestsAll: data.Table = [
   { year: 2017, value: 1820 },
   { year: 2018, value: 1795 },
-])
-const arrestsByOffenseClass: data.Table = data.unflatten([
+]
+const arrestsByOffenseClass: data.Table = [
   { year: 2017, offenseclass: 0, value: 162 },
   { year: 2017, offenseclass: 1, value: 1277 },
   { year: 2017, offenseclass: 2, value: 81 },
   { year: 2018, offenseclass: 0, value: 421 },
   { year: 2018, offenseclass: 1, value: 1253 },
   { year: 2018, offenseclass: 2, value: 121 },
-])
+]
 
 export function NewStorage(): Storage {
   return {

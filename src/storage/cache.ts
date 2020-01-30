@@ -12,9 +12,9 @@ export async function fetchFromDB(
 ): Promise<data.Table> {
   return new Promise((resolve, reject) => {
     db.serialize(() => {
-      db.all(`SELECT * FROM "${tableName}"`, (err: Error, rows) => {
+      db.all(`SELECT * FROM "${tableName}"`, (err: Error, tbl) => {
         if (err) reject(err)
-        else resolve(data.unflatten(rows as data.TableDTO))
+        else resolve(tbl)
       })
     })
   })

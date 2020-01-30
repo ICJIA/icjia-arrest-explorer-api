@@ -8,11 +8,11 @@ function runQuery(
   let result = tbl
 
   if ('minYear' in query) {
-    result = data.filter(result, 'year', '>=', data.toInt(query.minYear))
+    result = data.filter(result, 'year', '>=', parseInt(query.minYear))
   }
 
   if ('maxYear' in query) {
-    result = data.filter(result, 'year', '<=', data.toInt(query.maxYear))
+    result = data.filter(result, 'year', '<=', parseInt(query.maxYear))
   }
 
   if ('sortBy' in query) {
@@ -37,9 +37,7 @@ export function createHandlerArrestsAll(s: data.Service) {
     let tbl = s.getArrestsAll()
     tbl = runQuery(tbl, req.query)
 
-    const dto = data.flatten(tbl)
-
-    res.send(dto)
+    res.send(tbl)
   }
 }
 
@@ -48,8 +46,6 @@ export function createHandlerArrestsByOffenseClass(s: data.Service) {
     let tbl = s.getArrestsByOffenseClass()
     tbl = runQuery(tbl, req.query)
 
-    const dto = data.flatten(tbl)
-
-    res.send(dto)
+    res.send(tbl)
   }
 }

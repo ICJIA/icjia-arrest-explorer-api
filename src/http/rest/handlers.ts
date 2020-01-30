@@ -32,18 +32,15 @@ export function createHandlerIndex() {
   }
 }
 
-export function createHandlerArrestsAll(s: data.Service) {
+export function createHandlerTable(s: data.Service) {
   return (req: express.Request, res: express.Response): void => {
-    let tbl = s.getTable('arrestsAll')
-    tbl = runQuery(tbl, req.query)
+    const tableName = req.path
+      .split(/\/|-/)
+      .map(str => str.replace(/^\w/, c => c.toUpperCase()))
+      .join('')
+      .replace(/^\w/, c => c.toLowerCase())
 
-    res.send(tbl)
-  }
-}
-
-export function createHandlerArrestsByOffenseClass(s: data.Service) {
-  return (req: express.Request, res: express.Response): void => {
-    let tbl = s.getTable('arrestsByOffenseClass')
+    let tbl = s.getTable(tableName)
     tbl = runQuery(tbl, req.query)
 
     res.send(tbl)

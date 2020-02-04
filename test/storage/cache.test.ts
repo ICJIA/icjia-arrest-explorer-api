@@ -25,3 +25,13 @@ describe('fetchFromDB', () => {
     assert.deepEqual(actual, expected)
   })
 })
+
+describe('buildSqlForTable', () => {
+  it('should return a SQL statement based on table name', () => {
+    const actual = cache.buildSqlForTable('ArrestsByAgegroupAndGender')
+    const expected =
+      'SELECT * FROM ArrestsByAgegroupAndGender ORDER BY year, agegroup, gender'
+
+    assert.deepEqual(actual, expected)
+  })
+})

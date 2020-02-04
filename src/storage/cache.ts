@@ -19,6 +19,14 @@ export async function fetchFromDB(
   })
 }
 
+export function buildSqlForTable(name: string): string {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [head, ...tail] = name.split(/By|And/)
+  const order = ['year', ...tail].join(', ').toLowerCase()
+
+  return `SELECT * FROM ${name} ORDER BY ${order}`
+}
+
 async function fetchTables(
   db: sqlite3.Database,
 ): Promise<{ [key: string]: data.Table }> {
@@ -27,7 +35,7 @@ async function fetchTables(
 
   const tables: { [key: string]: data.Table } = {}
   for (const name of tableNames) {
-    tables[name] = await fetchFromDB(db, `SELECT * FROM ${name}`)
+    tables[name] = await fetchFromDB(db, buildSqlForTable(String(name)))
   }
 
   return tables

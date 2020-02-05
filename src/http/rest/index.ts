@@ -3,7 +3,7 @@ import morgan from 'morgan'
 import * as data from '../../data/'
 import { createHandlerIndex, createHandlerTable } from './handlers'
 
-function toPath(tableName: string): string {
+export function toPath(tableName: string): string {
   return tableName
     .replace('By', '/by')
     .replace('Ref', '/ref')

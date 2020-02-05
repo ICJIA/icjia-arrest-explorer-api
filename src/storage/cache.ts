@@ -20,11 +20,15 @@ export async function fetchFromDB(
 }
 
 export function buildSqlForTable(name: string): string {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [head, ...tail] = name.split(/By|And/)
-  const order = ['year', ...tail].join(', ').toLowerCase()
+  if (name.substring(0, 3) === 'Ref') {
+    return `SELECT * FROM ${name} ORDER BY id, value`
+  } else {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [head, ...tail] = name.split(/By|And/)
+    const order = ['year', ...tail].join(', ').toLowerCase()
 
-  return `SELECT * FROM ${name} ORDER BY ${order}`
+    return `SELECT * FROM ${name} ORDER BY ${order}`
+  }
 }
 
 async function fetchTables(

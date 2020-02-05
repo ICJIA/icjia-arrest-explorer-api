@@ -6,6 +6,7 @@ import { createHandlerIndex, createHandlerTable } from './handlers'
 function toPath(tableName: string): string {
   return tableName
     .replace('By', '/by')
+    .replace('Ref', '/ref')
     .replace(/([A-Z])/g, '-$1')
     .replace('-', '/')
     .toLowerCase()

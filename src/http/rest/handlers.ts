@@ -39,9 +39,12 @@ export function createHandlerTable(s: data.Service) {
       .map(str => str.replace(/^\w/, c => c.toUpperCase()))
       .join('')
 
-    let tbl = s.getTable(tableName)
-    tbl = runQuery(tbl, req.query)
+    const table = s.getTable(tableName)
 
-    res.send(tbl)
+    if (tableName.substring(0, 3) === 'Ref') {
+      res.send(table)
+    } else {
+      res.send(runQuery(table, req.query))
+    }
   }
 }

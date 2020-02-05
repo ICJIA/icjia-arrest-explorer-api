@@ -34,4 +34,11 @@ describe('buildSqlForTable', () => {
 
     assert.deepEqual(actual, expected)
   })
+
+  it('should return a SQL statement based on reference table name', () => {
+    const actual = cache.buildSqlForTable('RefByAgegroup')
+    const expected = 'SELECT * FROM RefByAgegroup ORDER BY id, value'
+
+    assert.deepEqual(actual, expected)
+  })
 })

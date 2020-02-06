@@ -1,13 +1,13 @@
 import assert from 'assert'
 import * as data from '../../src/data'
-import * as cache from '../../src/storage/cache'
+import * as sqlite from '../../src/storage/sqlite'
 
 describe('fetchFromDB', () => {
   it('should return a proper Table from a SQLite database', async () => {
     const sqlite3 = require('sqlite3').verbose()
     const db = new sqlite3.Database('./database.db')
 
-    const actual = await cache.fetchFromDB(db, 'SELECT * FROM Arrests')
+    const actual = await sqlite.fetchFromDB(db, 'SELECT * FROM Arrests')
     db.close()
     const expected: data.Table = [
       { year: 2009, value: 2435 },
@@ -28,7 +28,7 @@ describe('fetchFromDB', () => {
 
 describe('buildSqlForTable', () => {
   it('should return a SQL statement based on table name', () => {
-    const actual = cache.buildSqlForTable('ArrestsByAgegroupAndGender')
+    const actual = sqlite.buildSqlForTable('ArrestsByAgegroupAndGender')
     const expected =
       'SELECT * FROM ArrestsByAgegroupAndGender ORDER BY year, agegroup, gender'
 
@@ -36,7 +36,7 @@ describe('buildSqlForTable', () => {
   })
 
   it('should return a SQL statement based on reference table name', () => {
-    const actual = cache.buildSqlForTable('RefByAgegroup')
+    const actual = sqlite.buildSqlForTable('RefByAgegroup')
     const expected = 'SELECT * FROM RefByAgegroup ORDER BY id, value'
 
     assert.deepEqual(actual, expected)

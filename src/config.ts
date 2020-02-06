@@ -1,7 +1,7 @@
 type config = {
-  storage: 'cache' | 'memory' | 'mssql'
+  storage: 'memory' | 'mssql' | 'sqlite'
 }
 
 export default {
-  storage: 'cache',
+  storage: 'sqlite',
 } as config

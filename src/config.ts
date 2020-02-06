@@ -1,5 +1,5 @@
 type config = {
-  storage: 'cache' | 'memory'
+  storage: 'cache' | 'memory' | 'mssql'
 }
 
 export default {

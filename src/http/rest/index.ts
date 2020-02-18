@@ -5,10 +5,10 @@ import { createHandlerIndex, createHandlerTable } from './handlers'
 
 export function toPath(tableName: string): string {
   return tableName
-    .replace('By', '/by')
-    .replace('Ref', '/ref')
     .replace(/([A-Z])/g, '-$1')
     .replace('-', '/')
+    .replace('-By', '/by')
+    .replace('Ref-', 'ref/')
     .toLowerCase()
 }
 

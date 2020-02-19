@@ -4,7 +4,7 @@ import * as data from '../../data/'
 function runQuery(
   tbl: data.Table,
   query: { [key: string]: string },
-): data.Table {
+): data.Table | string {
   let result = tbl
 
   if ('minYear' in query) {
@@ -21,6 +21,10 @@ function runQuery(
       const order = orderRaw ? orderRaw.toLowerCase() : undefined
       result = data.sortBy(result, by, order as 'asc' | 'desc' | undefined)
     })
+  }
+
+  if ('csv' in query && query.csv.toLowerCase() === 'true') {
+    return data.toCSV(result)
   }
 
   return result

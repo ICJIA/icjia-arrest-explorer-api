@@ -25,7 +25,7 @@ export function buildSqlForTable(name: string): string {
   } else {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [head, ...tail] = name.split(/By|And/)
-    const order = ['year', ...tail].join(', ').toLowerCase()
+    const order = ['arrestyear', ...tail].join(', ').toLowerCase()
 
     return `SELECT * FROM ${name} ORDER BY ${order}`
   }

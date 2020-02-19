@@ -10,16 +10,16 @@ describe('fetchFromDB', () => {
     const actual = await sqlite.fetchFromDB(db, 'SELECT * FROM Arrests')
     db.close()
     const expected: data.Table = [
-      { year: 2009, value: 2435 },
-      { year: 2010, value: 2256 },
-      { year: 2011, value: 2130 },
-      { year: 2012, value: 2065 },
-      { year: 2013, value: 2071 },
-      { year: 2014, value: 1965 },
-      { year: 2015, value: 1978 },
-      { year: 2016, value: 1942 },
-      { year: 2017, value: 1820 },
-      { year: 2018, value: 1795 },
+      { arrestyear: 2009, value: 2435 },
+      { arrestyear: 2010, value: 2256 },
+      { arrestyear: 2011, value: 2130 },
+      { arrestyear: 2012, value: 2065 },
+      { arrestyear: 2013, value: 2071 },
+      { arrestyear: 2014, value: 1965 },
+      { arrestyear: 2015, value: 1978 },
+      { arrestyear: 2016, value: 1942 },
+      { arrestyear: 2017, value: 1820 },
+      { arrestyear: 2018, value: 1795 },
     ]
 
     assert.deepEqual(actual, expected)
@@ -30,7 +30,7 @@ describe('buildSqlForTable', () => {
   it('should return a SQL statement based on table name', () => {
     const actual = sqlite.buildSqlForTable('ArrestsByAgegroupAndGender')
     const expected =
-      'SELECT * FROM ArrestsByAgegroupAndGender ORDER BY year, agegroup, gender'
+      'SELECT * FROM ArrestsByAgegroupAndGender ORDER BY arrestyear, agegroup, gender'
 
     assert.deepEqual(actual, expected)
   })

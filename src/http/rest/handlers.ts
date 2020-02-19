@@ -8,11 +8,11 @@ function runQuery(
   let result = tbl
 
   if ('minYear' in query) {
-    result = data.filter(result, 'year', '>=', parseInt(query.minYear))
+    result = data.filter(result, 'arrestyear', '>=', parseInt(query.minYear))
   }
 
   if ('maxYear' in query) {
-    result = data.filter(result, 'year', '<=', parseInt(query.maxYear))
+    result = data.filter(result, 'arrestyear', '<=', parseInt(query.maxYear))
   }
 
   if ('sortBy' in query) {

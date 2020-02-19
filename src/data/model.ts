@@ -33,3 +33,13 @@ export function sortBy(
     .sort((a, b) => compare(a.row, b.row) || a.index - b.index)
     .map(({ row }) => row)
 }
+
+export function toCSV(tbl: Table): string {
+  const cols = Object.keys(tbl[0])
+  const header = cols.join(',')
+  const body = tbl.map(row =>
+    cols.map(col => JSON.stringify(row[col])).join(','),
+  )
+
+  return [header, ...body].join('\r\n')
+}

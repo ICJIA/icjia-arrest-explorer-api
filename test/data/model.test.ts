@@ -143,3 +143,17 @@ describe('select', () => {
     })
   })
 })
+
+describe('toCSV', () => {
+  describe('[{ A: 1, value: 1 }, { A: 1, value: 2 }]', () => {
+    it('should return a CSV string with one row of headers and two rows of data', () => {
+      const actual = data.toCSV([
+        { A: 1, value: 1 },
+        { A: 1, value: 2 },
+      ] as data.Table)
+      const expected = 'A,value\r\n1,1\r\n1,2'
+
+      assert.equal(actual, expected)
+    })
+  })
+})

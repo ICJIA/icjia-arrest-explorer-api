@@ -3,5 +3,5 @@ type config = {
 }
 
 export default {
-  storage: 'sqlite',
+  storage: 'mssql',
 } as config

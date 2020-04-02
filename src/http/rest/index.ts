@@ -20,7 +20,7 @@ export function NewApp(s: data.Service): express.Express {
   const handleTable = createHandlerTable(s)
 
   app.get('/', (req, res) => handleIndex(req, res))
-  s.getTableNames().map(tableName => {
+  s.getTableNames().forEach(tableName => {
     app.get(toPath(tableName), (req, res) => handleTable(req, res))
   })
 

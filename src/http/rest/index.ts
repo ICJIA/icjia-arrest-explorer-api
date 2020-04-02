@@ -16,11 +16,13 @@ export function NewApp(s: data.Service): express.Express {
   const app = express()
   app.use(morgan('tiny'))
 
+  const tableNames = s.getTableNames()
   const handleIndex = createHandlerIndex()
   const handleTable = createHandlerTable(s)
 
   app.get('/', (req, res) => handleIndex(req, res))
-  s.getTableNames().forEach(tableName => {
+  app.get('/routes', (req, res) => res.send(tableNames.map(toPath)))
+  tableNames.forEach(tableName => {
     app.get(toPath(tableName), (req, res) => handleTable(req, res))
   })
 

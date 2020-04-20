@@ -48,7 +48,7 @@ export function createHandlerTable(s: data.Service) {
     if (tableName.substring(0, 3) === 'Ref') {
       res.send(table)
     } else {
-      res.send(runQuery(table, req.query))
+      res.send(runQuery(table, req.query as { [key: string]: string }))
     }
   }
 }

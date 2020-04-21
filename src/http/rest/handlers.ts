@@ -16,7 +16,7 @@ function runQuery(
   }
 
   if ('sortBy' in query) {
-    query.sortBy.split(' ').forEach(param => {
+    query.sortBy.split(',').forEach(param => {
       const [by, orderRaw] = param.split(':')
       const order = orderRaw ? orderRaw.toLowerCase() : undefined
       result = data.sortBy(result, by, order as 'asc' | 'desc' | undefined)

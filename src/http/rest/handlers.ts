@@ -16,11 +16,14 @@ function runQuery(
   }
 
   if ('sortBy' in query) {
-    query.sortBy.split(',').forEach(param => {
-      const [by, orderRaw] = param.split(':')
-      const order = orderRaw ? orderRaw.toLowerCase() : undefined
-      result = data.sortBy(result, by, order as 'asc' | 'desc' | undefined)
-    })
+    query.sortBy
+      .split(',')
+      .reverse()
+      .forEach(param => {
+        const [by, orderRaw] = param.split(':')
+        const order = orderRaw ? orderRaw.toLowerCase() : undefined
+        result = data.sortBy(result, by, order as 'asc' | 'desc' | undefined)
+      })
   }
 
   if ('csv' in query && query.csv.toLowerCase() === 'true') {
